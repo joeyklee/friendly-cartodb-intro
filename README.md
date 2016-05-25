@@ -31,60 +31,24 @@ We are committed to maintaining a safe, positive, and fun learning environment. 
 
 ## Agenda:
 * 5 min introductions 
-* XX min [slide presentation on web maps]().
-* XX min [overview of "your first web maps"]().
-* XX min faciliated co-working/co-learning 
+* 15 min [slide presentation on web maps]().
+* 35 min [overview of "your first web maps"]().
+* 50 min faciliated co-working/co-learning 
 * 10 min wrap up & conclusions
 
 ### Workshop:
-#### Data Creation:
-* Making data with [Geojson.io](http://geojson.io/)
-* Making data with [CartoDB - adding geometries](https://docs.cartodb.com/tutorials/adding_geometries/)
-
-#### Data Acquisition:
-* Sources of data:
-	* [Mapzen OSM Metro Extracts](https://mapzen.com/data/metro-extracts/)
-	* ...
-	* ...
-
-#### Data Import:
-* "Connect Data Source" using CartoDB
-
-#### Visualization Pt.I
-* The cartodb viz wizard
-* legends
-* Basemaps
-* labels
-
-#### Data Merging
-* data merging
-
-#### Simple Data Filtering
-* Filtering using sliders
-
-#### Visualization Pt.II
-* torque - animations
-* adding labels and 
-
-
-#### Export & Share
-* Export to web 
-* Export data
-
-
-
-## Materials / References:
-
-
+* The workshop materials can be found [here](WORKSHOP.md).
 
 ## Further Learning:
-
-
+* [CartoDB Map Academy](https://academy.cartodb.com/)
+* [Maptime](http://maptime.io/) - see resources and meetups
+* [Vancovuer 3-1-1 CartoDB intro](https://github.com/joeyklee/cartodb-van311-example)
 
 <br>
 
 ### This workshop was made possible with the support of:
-
+* Mozilla Science Lab
+* UBC Research Commons Workshops / Pixelating: A Digital Humanities Mixer
 
 ###Oh, by the way, what's Mozilla Science Lab??
 At [Mozilla Science Lab](https://mozillascience.org/) we help scientists and researchers (anyone from students to established researchers to citizen scientists) to work openly and do better research, more research, and make that research more useful by sharing it widely.  
