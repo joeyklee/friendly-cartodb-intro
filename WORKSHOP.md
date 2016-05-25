@@ -1,8 +1,60 @@
 # Friendly CartoDB Introduction
 This is a friendly introduction to web mapping using CartoDB. 
 
-## Overvview
-### Data Creation & Data Import Pt. I:
+## Overview
+#### Making Maps On the Web, for the Web
+
+### Data Creation & Upload
+#### Making data pt. I
+* Making data with [Geojson.io](http://geojson.io/)
+
+#### Getting Started with CartoDB:
+* Sign up
+
+#### Making data pt. II
+* Making data with [CartoDB - adding geometries](https://docs.cartodb.com/tutorials/adding_geometries/)
+
+#### Data Acquisition:
+* Sources of data:
+	* OpenStreetMap:
+		* [Mapzen OSM Metro Extracts](https://mapzen.com/data/metro-extracts/)
+	* Open Data Catalogs:
+		* [Vancouver Open data](http://data.vancouver.ca/datacatalogue/index.htm)
+		* [Toronto Open Data](http://www1.toronto.ca/wps/portal/contentonly?vgnextoid=1a66e03bb8d1e310VgnVCM10000071d60f89RCRD)
+		* [San Francisco Open Data](https://data.sfgov.org/)
+		* ...do a web search for "city" + "open data"
+	* University data sets:
+		* [UBC GIS Data](http://help.library.ubc.ca/finding-resources/geographic-information-systems/)
+	* Open Research Data:
+		* [Zenodo](https://zenodo.org/)
+		* [Figshare](https://figshare.com/)
+	* Blogs:
+		* [RT Wilson's Blog of data sources](http://freegisdata.rtwilson.com/)
+		* ... do a web search "gis" + data sources
+
+### Building our First Visualization with CartoDB
+#### Data
+* Twitter Data
+* Metro Vancouver boundaries
+#### The Style Wizard
+* Using different visual representations
+#### Animating points
+* Animating time series data
+#### Filtering Data
+* Filtering data
+#### Spatial Join/Data Merge
+* Merging data and spatial joins
+#### Choropleth Maps
+* Your first choropleth
+#### Popups
+* adding tool tips
+#### Adding Text
+* adding text to a map
+#### Share!
+
+
+
+<!--### Data Creation & Data Import Pt. I:
 #### Create data
 * Making data with [Geojson.io](http://geojson.io/)
 * Making data with [CartoDB - adding geometries](https://docs.cartodb.com/tutorials/adding_geometries/)
@@ -47,7 +99,7 @@ This is a friendly introduction to web mapping using CartoDB.
 
 #### Export & Share
 * Export to web 
-* Export data
+* Export data-->
 
 
 ***
@@ -430,12 +482,10 @@ Now it's your turn to go off roading and create your own custom visuals. Feel fr
 
 ## Boom!
 
+<!--
 <iframe width="100%" height="520" frameborder="0" src="https://joeyklee.cartodb.com/viz/4a1b947a-2236-11e6-ba87-0ecfd53eb7d3/embed_map" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
 
-
-
-
-
+-->
 
 
 
