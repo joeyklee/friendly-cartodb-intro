@@ -204,7 +204,8 @@ There are lots of data out there, from urban datasets on taxi and bus data to gl
 ## Data:
 
 * [X Hours of Vancouver Twitter Data]()
-	* I've collected 3500 tweets from the Metro Vancouver area using the Twitter streaming API.  
+	* I've collected 3500 tweets from the Metro Vancouver area using the Twitter streaming API.
+	* If the locations were not present in the tweet, I geocoded them using the OpenStreetMap geocoder API. It is important to be cautious of geocoded data!   
 * [Metro Vancouver polygons]():
 	* We will use the city boundaries for the metro vancouver area to create a choropleth for the number of tweets per city. 
 
@@ -215,13 +216,221 @@ The first thing we need to do is make a new map.
 
 ## Connect the Twitter data to CartoDB:
 
-In the URL input box, you will first add the link to the Twitter data:
+In the URL input box, you will first add the link to the Twitter data and click `submit` then `connect dataset`:
 
 ```
-
+https://raw.githubusercontent.com/joeyklee/friendly-cartodb-intro/master/data/metrovan-tweets-3050.geojson
 ```
 
+Once your data is loaded, it is good practice to change the name. Here I've called the dataset `vancouver-tweets`:
 
+![](assets/img/rename-twitter-data.png)
+
+
+Browse the `text` column to see what kinds of things people were saying. 
+
+Now switch to the `map view` to see the tweets in their geography:
+
+![](assets/img/map-view-initial-twitter.png)
+
+***WOW!!! Just like that we already have a map of the tweets.***
+
+
+## Visualization Pt. I: The Style Wizard & Animating Points
+
+### Style Wizard:
+
+Take a peek at the `style wizard` and take some time to change the visualization types, exploring different possibilities. Our options are:
+
+* simple
+* cluster
+* choropleth
+* category
+* bubble
+* torque
+* heatmap
+* torque cat
+* intensity
+* density
+
+A few of the different results are shown below: 
+
+![](assets/img/tweets-style-simple.png)
+![](assets/img/tweets-style-cluster.png) 
+![](assets/img/tweets-style-heatmap.png) 
+![](assets/img/tweets-style-intensity.png) 
+![](assets/img/tweets-style-density.png) 
+
+
+### Animating Points with Torque:
+
+If you clicked on the `torque` option, you may have noticed the points starting to animate on the screen. Let's make sure that CartoDB knows what the time field is it should be animating against. 
+
+Let's switch back to our `data view`. Notice that we have a column called `created` - this is the date and time when the tweet was sent out into the webiverse. Also notice that under the column is the word `string`. What this means is that CartoDB thinks that the column type is actually just a bunch of words and not a date/time column. We can change that by clicking on the dropdown arrow and changing it to `date`. This will change the `created` column to a `date` type that we can use to animate the tweets. The steps are shown below:
+
+![](assets/img/tweet-date-1.png)
+
+![](assets/img/tweet-date-2.png)
+
+
+Now that we have a proper `date` column, let's use the `torque` style on our tweets and watch them animate! 
+
+* Switch back to the `map view`, 
+* go to the `style wizard`
+* select the `torque` style
+* ensure that the `time column` option is set to our date/time column called `created`
+
+![](assets/img/torque-view.png)
+
+![](assets/img/tweets-torque.gif)
+**Holy guacamole! The tweets are animating!!***
+
+
+### Filtering Data:
+
+Everything may seem all fine and good, but zoom out a bit (to say zoom level 4) and take a peek at what is happening up in northern canada and out east. There seem to be some tweets that have been geolocated to placed outside of our region of interest - metro Vancouver. What can we do to filter out these data points? We can use CartoDB's filtering option. Click on the `filters` tab:
+
+![](assets/img/outliers.png)
+![](assets/img/filters-tab.png)
+
+In a more advanced setting we might use and `sql query` on `the_geom` (the geometry) of the tweets, but for now, let's filter using the `full_location` field in our dataset. The `full_location` is a field that is included in the twitter data to indicate where the tweet came from. In the dropdown menu in the `filters` tab, select `full_location` 
+
+![](assets/img/filters-full-location.png)
+
+You will now see all the values that were listed as the `full_location` of where the tweet could have come from. Notice that immediately we see some locations that are not so specific to metro Vancouver, but rather are more general (e.g. `Canada` or `Kanada`, etc). It is no wonder why we have some points that appear way outside of metro Vancouver - our geocoder returned the latitude/longitude coordinates of Canada's center for these locations. 
+
+![](assets/img/filter-location-canada.png)
+
+Let's filter any of those locations that are not specific to metro Vancouver (Apologies to anyone who is not from the area - for your convenience, I've listed those places below). We can filter out those points by disabling them simply by click on the row.
+
+These should be left out:
+
+* Canada
+* Canadá
+* Kanada
+* British Columbia, Canada
+* Capital, British Columbia
+* Sunshine Coast F, British Columbia
+* Fraser Valley C, British Columbia
+* (have any suggestions for places that shouldn't be in? or ones that should? - please post into the Issues)
+
+Can you think of other parameters that might help to filter our data down? Feel free to navigate the filters tab. NOTE: These filters are actually performing some `sql queries` on the data and thereby filtering them. You can develop your own custom queries if you're familiar. We can chat more about this in subsequent tutorials.
+
+In any case - great! we now have more or less a filtered dataset to metro Vancouver. 
+![](assets/img/filtered-tweets.png)
+
+
+### Spatial Join/Data Merge:
+
+So now we've got our animating points and this is great, but let's take it one step further. Remember in the beginning of the tutorial we had the administrative boundaries for the cities in metro vancouver? Let's use this to see which cities have the most tweets according to our twitter sample.
+
+First, we need to `connect our dataset`. We can add this data by clicking on the plus symbol at the top of our sidebar:
+
+![](assets/img/add-data.png)
+
+
+When prompted, click `ok, create map` to add our new layer. Navigate over and `connect dataset`. In the URL, enter:
+
+```
+https://raw.githubusercontent.com/joeyklee/friendly-cartodb-intro/master/data/metrovan.geojson
+```
+
+Click `submit` and `add layer`.
+
+Notice now we have the boundaries for metro vancouver:
+
+![](assets/img/metro-van.png)
+
+
+Cool, so how do we merge the number of tweets with the city boundaries? Well, CartoDB has a solution for that too. We can use the `merge` workflow.
+
+In order to do our data merge, we need to first switch back to `data view`. In the bottom right of our sidebar you will see the `merge` function button. Click it.
+
+![](assets/img/merge-datasets-1.png)
+
+Next you will perform a `spatial join`. Click on the button on the right:
+
+![](assets/img/merge-datasets-2.png)
+
+We now have to select `vancouver_tweets` from the dropdown menu to tell CartoDB to join the `tweets` with the `metro vancouver boundaries`. Make sure to `select all columns` so that we keep all our data from the `metro vancouver boundaries` file.  
+
+![](assets/img/merge-datasets-3.png)
+![](assets/img/merge-datasets-4.png)
+
+We are now given 3 options on how the spatial join should be done. In other cases you might want to calculate the sum or average of something, but for us we're simply interested in the `count`. Select `count` and then `merge datasets`.
+
+![](assets/img/merge-datasets-5.png)
+![](assets/img/merge-datasets-6.png)
+
+First you will be sent to the data view - let's change the name to `metro-van-tweet-counts`.
+
+![](assets/img/merge-datasets-7.png)
+
+You will have to go back to the map that you created by clicking on the back arrow and toggling from `data` to `maps` in the top-left corner. Select the map we created with our various layers.
+
+![](assets/img/go-back-to-map.png)
+
+We can now `turn off` the `metro van` layer by toggling the visibility slider. Notice that the old metro-vancouver boundaries disappear:
+
+![](assets/img/toggle-metro-van.png)
+
+Now we can add in our `metro-can-tweet-count` data to our map. Click `add layer` at the top of our sidebar menu and select the `metro-van-tweet-counts` from our data library. The polygons will be added to the map.
+
+### Our Choropleth and Map elements:
+
+#### The choropleth
+Let's style our `metro-van-tweet-counts`. We have a number of options in our `style wizard`. If I were you I would choose either the `bubble` chart or the `choropleth`. For the purpose of this tutorial, let's choose `choropleth`. After choosing `choropleth` we can change our column to `intersect_count` which is the default name given to the interesection counts between the tweets and the `metro van` boundaries. 
+
+![](assets/img/choropleth-1.png)
+![](assets/img/choropleth-2.png)
+
+There are a number of options we can adjust such as the `buckets`, `quantification` , and the `color ramp`. [Lisa Rost has a really great blog post about which quantification algorithm to use](http://lisacharlotterost.github.io/2014/12/14/Styling-Choropleth-Maps-2/) - I highly recommend you read this before simply styling your data to the one that looks the best which is *dangerous* and sometimes *misleading*.
+
+#### Popups:
+We can add `tooltips` when we click the polygons of our choropleth by using the `infowindow` tools in our sidebar.
+
+![](assets/img/tooltips-0.png)
+
+We can toggle on and off which columns in our dataset we want to show on click. Let's turn on the `intersect_count` column and `add a title`:
+
+![](assets/img/tooltips-1.png)
+![](assets/img/tooltips-2.png)
+![](assets/img/tooltips-3.png)
+![](assets/img/tooltips-4.png)
+
+Now when we click on the polygon, we get back the total tweets:
+
+![](assets/img/tooltips-5.png)
+
+
+#### Add text item:
+
+Let's also add a text item to explain what our map is and what's happening:
+![](assets/img/add-text-1.png)
+
+```
+**5 hours of tweets in Metro Vancouver**
+Choropleth map of tweet counts per city in Metro Vancouver with animating tweets. Source: tweets, Metro Vancouver
+```
+
+![](assets/img/add-text-2.png)
+
+
+### Share with the World:
+
+Let's share with the world:
+
+![](assets/img/publish-1.png)
+![](assets/img/publish-2.png)
+
+
+### Remix, Recolor, retext:
+Now it's your turn to go off roading and create your own custom visuals. Feel free to change the visual type of the tweets, try to **normalize the counts by area or population**, etc. Any of your edits will be saved and updated.
+
+
+## Boom!
+
+<iframe width="100%" height="520" frameborder="0" src="https://joeyklee.cartodb.com/viz/4a1b947a-2236-11e6-ba87-0ecfd53eb7d3/embed_map" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
 
 
 
