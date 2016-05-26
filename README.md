@@ -49,7 +49,12 @@ We are committed to maintaining a safe, positive, and fun learning environment. 
 * [CartoDB Map Academy](https://academy.cartodb.com/)
 * [Maptime](http://maptime.io/) - see resources and meetups
 * [Vancovuer 3-1-1 CartoDB intro](https://github.com/joeyklee/cartodb-van311-example)
+* [Scroll driven adventure](https://github.com/joeyklee/mapboxjs-scroll-driven-adventure)
 
+## Other interesting tools + learnings:
+* [Storymap](https://storymap.knightlab.com/)
+* [Oddysey](https://cartodb.github.io/odyssey.js/)
+* [Mapbox](https://www.mapbox.com/)
 <br>
 
 ### This workshop was made possible with the support of:
