@@ -31,8 +31,14 @@ We are committed to maintaining a safe, positive, and fun learning environment. 
 
 ## Agenda:
 * 5 min introductions 
-* 15 min [slide presentation on web maps]().
-* 35 min [overview of "your first web maps"]().
+* 15 min [slide presentation on the anatomy of web maps](http://joeyklee.github.io/cartodb-van311-example/slides/#/).
+  * Some example projects:
+     * http://hub.cab/#13.00/40.7219/-73.9484
+     * http://nyctaxi.herokuapp.com/
+     * http://clhenrick.github.io/BushwickCommunityMap/index.html?language=en
+     * http://demographics.coopercenter.org/DotMap/
+     * http://homepage.ntlworld.com/keir.clarke/mapsoftheyear.htm
+* 35 min [overview of "your first web maps"](WORKSHOP.md).
 * 50 min faciliated co-working/co-learning 
 * 10 min wrap up & conclusions
 
